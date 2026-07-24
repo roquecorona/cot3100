@@ -1,0 +1,3138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reference</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#0F7B8A">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script id="refdata" type="application/json">{
+ "meta": {
+  "title": "COT 3100 — Graphs & Trees",
+  "subtitle": "Discrete Structures · Rosen Ch. 10–11 · a lookup reference",
+  "wordmark": "COT<b>3100<\/b>",
+  "footer": "COT 3100 · Graphs & Trees",
+  "anchor": "Rosen, Discrete Mathematics and Its Applications, 8th ed. (Ch. 10–11)"
+ },
+ "topicAreas": [
+  {
+   "id": "graph-types",
+   "name": "Graph types & modeling",
+   "glance": "A graph is a set of vertices joined by edges. Its type is fixed by two questions — can edges repeat or loop, and do they carry direction — and that classification decides how degree, matrices, and every later result behave.",
+   "entries": [
+    {
+     "term": "graph",
+     "type": "concept",
+     "essence": "A graph G=(V,E) pairs a set of vertices with a set of edges, each edge joining two vertices.",
+     "detail": [
+      {
+       "label": "Definition",
+       "formula": [
+        {
+         "tex": "G = (V, E)",
+         "caption": "vertices V, edges E"
+        }
+       ],
+       "where": [
+        [
+         "V",
+         "the set of vertices (nodes)"
+        ],
+        [
+         "E",
+         "the set of edges, each joining two vertices of V"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Vertices are the objects; an edge records a relationship between its two endpoints. The picture — dots and lines — is the whole object; everything else is vocabulary layered on top."
+      },
+      {
+       "label": "Note",
+       "body": "The endpoints of an edge are the two vertices it joins; those vertices are adjacent (neighbors), and the edge is incident to each."
+      }
+     ],
+     "aliases": [
+      "network",
+      "nodes and edges"
+     ],
+     "related": [
+      "simple graph",
+      "directed graph",
+      "degree"
+     ]
+    },
+    {
+     "term": "simple graph",
+     "type": "concept",
+     "essence": "An undirected graph with no loops and at most one edge between any pair of vertices.",
+     "detail": [
+      {
+       "label": "Form",
+       "body": "Each edge is an unordered pair of two distinct vertices, and no pair is repeated. The default 'graph' in most theorems."
+      },
+      {
+       "label": "Use when",
+       "body": "The relation is symmetric and either holds once or not at all (e.g. 'these two people are friends')."
+      }
+     ],
+     "related": [
+      "multigraph",
+      "graph",
+      "complete graph"
+     ]
+    },
+    {
+     "term": "multigraph",
+     "type": "concept",
+     "essence": "An undirected graph that allows multiple (parallel) edges between the same pair but no loops.",
+     "detail": [
+      {
+       "label": "Form",
+       "body": "Two or more edges may share the same pair of endpoints; each is counted separately."
+      },
+      {
+       "label": "Use when",
+       "body": "A pair can be related more than once — e.g. two separate flights between the same two cities."
+      }
+     ],
+     "aliases": [
+      "parallel edges"
+     ],
+     "related": [
+      "pseudograph",
+      "simple graph",
+      "adjacency matrix"
+     ]
+    },
+    {
+     "term": "pseudograph",
+     "type": "concept",
+     "essence": "An undirected graph that allows both multiple edges and loops.",
+     "detail": [
+      {
+       "label": "Form",
+       "body": "The most permissive undirected type: parallel edges allowed, and an edge may join a vertex to itself."
+      },
+      {
+       "label": "Note",
+       "body": "A loop is an edge from a vertex to itself; it contributes 2 to that vertex's degree."
+      }
+     ],
+     "related": [
+      "multigraph",
+      "loop",
+      "degree"
+     ]
+    },
+    {
+     "term": "loop",
+     "type": "concept",
+     "essence": "An edge that joins a vertex to itself.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Both endpoints are the same vertex. In an undirected graph a loop adds 2 to that vertex's degree; in a directed graph it adds 1 to both in-degree and out-degree."
+      },
+      {
+       "label": "Use when",
+       "body": "Modeling a self-relation, e.g. a network node that can route a message to itself."
+      }
+     ],
+     "related": [
+      "degree",
+      "pseudograph"
+     ]
+    },
+    {
+     "term": "directed graph",
+     "type": "concept",
+     "essence": "A graph whose edges are ordered pairs (u,v) — arrows with a direction from u to v.",
+     "detail": [
+      {
+       "label": "Definition",
+       "formula": [
+        {
+         "tex": "(u, v) : u \\to v",
+         "caption": "edge directed from u to v"
+        }
+       ],
+       "where": [
+        [
+         "(u,v)",
+         "an ordered pair; the edge starts at u and ends at v"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Direction matters: (u,v) and (v,u) are different edges. Models asymmetric relations — following, linking, influence, one-way flow."
+      },
+      {
+       "label": "Note",
+       "body": "A simple directed graph forbids loops and repeated identical edges; a directed multigraph allows parallel arrows."
+      }
+     ],
+     "aliases": [
+      "digraph",
+      "directed multigraph"
+     ],
+     "related": [
+      "in-degree and out-degree",
+      "graph",
+      "directed connectivity"
+     ]
+    },
+    {
+     "term": "graph type classification",
+     "type": "concept",
+     "essence": "The five standard graph types are distinguished by whether edges are directed, may repeat, or may loop.",
+     "detail": [
+      {
+       "label": "Rosen Table 1",
+       "columns": [
+        "Type",
+        "Edges",
+        "Multiple edges?",
+        "Loops?"
+       ],
+       "rows": [
+        [
+         "Simple graph",
+         "Undirected",
+         "No",
+         "No"
+        ],
+        [
+         "Multigraph",
+         "Undirected",
+         "Yes",
+         "No"
+        ],
+        [
+         "Pseudograph",
+         "Undirected",
+         "Yes",
+         "Yes"
+        ],
+        [
+         "Simple directed graph",
+         "Directed",
+         "No",
+         "Yes"
+        ],
+        [
+         "Directed multigraph",
+         "Directed",
+         "Yes",
+         "Yes"
+        ]
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Choosing a model: pick the least permissive type that still captures direction and multiplicity your situation needs."
+      }
+     ],
+     "aliases": [
+      "Table 1"
+     ],
+     "related": [
+      "graph model",
+      "simple graph",
+      "directed graph"
+     ]
+    },
+    {
+     "term": "graph model",
+     "type": "concept",
+     "essence": "A choice of what vertices and edges represent, mapping a real situation onto a graph.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Vertices stand for the objects; an edge encodes the relation of interest. The modeling decision is the type: directed or not, loops or not, parallel edges or not."
+      },
+      {
+       "label": "Standard models",
+       "facts": [
+        [
+         "acquaintance",
+         "people; edge if they know each other (simple)"
+        ],
+        [
+         "influence",
+         "people; arrow if one influences another (directed)"
+        ],
+        [
+         "web graph",
+         "pages; arrow for each hyperlink (directed)"
+        ],
+        [
+         "call graph",
+         "phone numbers; edge/arrow per call (multigraph/directed)"
+        ],
+        [
+         "round-robin",
+         "teams; arrow from winner to loser (directed, no loops)"
+        ],
+        [
+         "precedence",
+         "tasks; arrow if one must finish before another (directed acyclic)"
+        ]
+       ]
+      }
+     ],
+     "related": [
+      "graph type classification"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "degree",
+   "name": "Degree & basic counting",
+   "glance": "Degree counts the edge-ends at a vertex and is the first thing to compute about any graph: it gives the edge count, constrains which vertices can be odd, and drives the Euler and bipartite tests.",
+   "entries": [
+    {
+     "term": "degree",
+     "type": "concept",
+     "essence": "The degree deg(v) of a vertex is the number of edge-ends meeting it, with a loop counting twice.",
+     "detail": [
+      {
+       "label": "Definition",
+       "formula": [
+        {
+         "tex": "\\text{deg}(v) = \\#\\ \\text{edge-ends at } v",
+         "caption": "a loop contributes 2"
+        }
+       ],
+       "where": [
+        [
+         "\\text{deg}(v)",
+         "degree of vertex v in an undirected graph"
+        ]
+       ]
+      },
+      {
+       "label": "Form/Range",
+       "body": "A vertex of degree 0 is isolated; a vertex of degree 1 is pendant."
+      },
+      {
+       "label": "Note",
+       "body": "Count ends, not edges: a loop at v adds 2 to deg(v) because both of its ends attach to v."
+      }
+     ],
+     "related": [
+      "handshaking theorem",
+      "in-degree and out-degree",
+      "isolated vertex"
+     ]
+    },
+    {
+     "term": "handshaking theorem",
+     "type": "concept",
+     "essence": "The sum of all vertex degrees equals twice the number of edges.",
+     "detail": [
+      {
+       "label": "The identity",
+       "formula": [
+        {
+         "tex": "\\sum_{v \\in V} \\text{deg}(v) = 2\\,|E|",
+         "caption": "each edge adds 2 to the total degree"
+        }
+       ],
+       "where": [
+        [
+         "|E|",
+         "number of edges"
+        ],
+        [
+         "\\text{deg}(v)",
+         "degree of vertex v"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Every edge has two ends, so it is counted twice when degrees are summed. Rearranging gives the edge count from a degree list: |E| = (sum of degrees)/2."
+      },
+      {
+       "label": "Corollary",
+       "body": "The number of odd-degree vertices is always even — the odd degrees must pair up to keep the total sum even."
+      },
+      {
+       "label": "Worked example",
+       "code": "Degree sequence 4,3,3,2,2:\n  sum = 14  ->  |E| = 14/2 = 7 edges."
+      }
+     ],
+     "aliases": [
+      "handshake lemma",
+      "sum of degrees"
+     ],
+     "related": [
+      "degree",
+      "degree sequence"
+     ]
+    },
+    {
+     "term": "in-degree and out-degree",
+     "type": "concept",
+     "essence": "In a directed graph, in-degree counts arrows entering a vertex and out-degree counts arrows leaving it.",
+     "detail": [
+      {
+       "label": "Balance identity",
+       "formula": [
+        {
+         "tex": "\\sum_v \\text{deg}^-(v) = \\sum_v \\text{deg}^+(v) = |E|",
+         "caption": "each arrow is one tail and one head"
+        }
+       ],
+       "where": [
+        [
+         "\\text{deg}^-(v)",
+         "in-degree: arrows pointing into v"
+        ],
+        [
+         "\\text{deg}^+(v)",
+         "out-degree: arrows pointing out of v"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "A loop adds 1 to both the in-degree and the out-degree of its vertex. The two sums are equal because every directed edge contributes one head and one tail."
+      }
+     ],
+     "aliases": [
+      "indegree",
+      "outdegree"
+     ],
+     "related": [
+      "directed graph",
+      "degree"
+     ]
+    },
+    {
+     "term": "degree sequence",
+     "type": "concept",
+     "essence": "The list of vertex degrees, usually written in nonincreasing order.",
+     "detail": [
+      {
+       "label": "Use when",
+       "body": "Comparing graphs (a shared degree sequence is a necessary condition for isomorphism) or recovering the edge count via the handshaking theorem."
+      },
+      {
+       "label": "Note",
+       "body": "A sequence is graphical if some simple graph realizes it; the number of odd entries must be even."
+      }
+     ],
+     "related": [
+      "handshaking theorem",
+      "isomorphism invariant"
+     ]
+    },
+    {
+     "term": "isolated vertex",
+     "type": "concept",
+     "essence": "A vertex of degree 0 — it belongs to no edge.",
+     "detail": [
+      {
+       "label": "Note",
+       "body": "An isolated vertex is its own connected component. Pendant (degree-1) vertices are its close relative and matter for trees."
+      }
+     ],
+     "aliases": [
+      "pendant vertex"
+     ],
+     "related": [
+      "degree",
+      "connected component"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "special-graphs",
+   "name": "Special families of graphs",
+   "glance": "A handful of named families — complete, cycle, path, wheel, cube, and complete bipartite graphs — recur constantly; recognizing one instantly gives its degree, edge count, and structural properties.",
+   "entries": [
+    {
+     "term": "complete graph",
+     "type": "syntax",
+     "essence": "K_n has every pair of its n vertices joined by an edge.",
+     "detail": [
+      {
+       "label": "Edge count & degree",
+       "formula": [
+        {
+         "tex": "|E| = \\frac{n(n-1)}{2}",
+         "caption": "every pair joined"
+        },
+        {
+         "tex": "\\text{deg}(v) = n - 1",
+         "caption": "each vertex adjacent to all others"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of vertices"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "K_n is the densest simple graph on n vertices and needs n colors to properly color."
+      }
+     ],
+     "aliases": [
+      "K_n",
+      "Kn",
+      "complete"
+     ],
+     "related": [
+      "complete bipartite graph",
+      "chromatic number",
+      "cycle graph"
+     ]
+    },
+    {
+     "term": "cycle graph",
+     "type": "syntax",
+     "essence": "C_n is n vertices joined in a single closed ring (n ≥ 3).",
+     "detail": [
+      {
+       "label": "Structure",
+       "formula": [
+        {
+         "tex": "v_1 - v_2 - \\cdots - v_n - v_1",
+         "caption": "n edges, every vertex degree 2"
+        }
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "C_n is bipartite exactly when n is even; its chromatic number is 2 for even n and 3 for odd n."
+      }
+     ],
+     "aliases": [
+      "C_n",
+      "Cn"
+     ],
+     "related": [
+      "path graph",
+      "bipartite graph",
+      "chromatic number"
+     ]
+    },
+    {
+     "term": "path graph",
+     "type": "syntax",
+     "essence": "P_n is n vertices joined in a single open line.",
+     "detail": [
+      {
+       "label": "Form/Range",
+       "body": "The two endpoints have degree 1; the interior vertices have degree 2. Contains n−1 edges."
+      },
+      {
+       "label": "Note",
+       "body": "A path is a tree; it is the simplest connected acyclic graph."
+      }
+     ],
+     "aliases": [
+      "P_n",
+      "Pn"
+     ],
+     "related": [
+      "cycle graph",
+      "tree"
+     ]
+    },
+    {
+     "term": "wheel graph",
+     "type": "syntax",
+     "essence": "W_n is a cycle C_n plus one hub vertex joined to all n rim vertices.",
+     "detail": [
+      {
+       "label": "Counts",
+       "formula": [
+        {
+         "tex": "|E| = 2n",
+         "caption": "n rim edges + n spokes"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of rim vertices (total vertices = n+1)"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "The hub has degree n; each rim vertex has degree 3."
+      }
+     ],
+     "aliases": [
+      "W_n",
+      "Wn"
+     ],
+     "related": [
+      "cycle graph",
+      "complete graph"
+     ]
+    },
+    {
+     "term": "n-cube",
+     "type": "syntax",
+     "essence": "Q_n has the 2^n bit strings of length n as vertices, joined when they differ in exactly one bit.",
+     "detail": [
+      {
+       "label": "Counts",
+       "formula": [
+        {
+         "tex": "|V| = 2^n",
+         "caption": "one vertex per bit string"
+        },
+        {
+         "tex": "\\text{deg}(v) = n",
+         "caption": "flip any one of n bits"
+        }
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Q_n is bipartite (split by parity of the number of 1-bits) and has n·2^{n-1} edges."
+      }
+     ],
+     "aliases": [
+      "Q_n",
+      "hypercube",
+      "cube graph"
+     ],
+     "related": [
+      "bipartite graph",
+      "spanning tree"
+     ]
+    },
+    {
+     "term": "bipartite graph",
+     "type": "concept",
+     "essence": "A graph whose vertices split into two sets so that every edge goes between the sets, never within one.",
+     "detail": [
+      {
+       "label": "Characterization",
+       "formula": [
+        {
+         "tex": "\\text{bipartite} \\iff \\text{no odd cycle}",
+         "caption": "the working test"
+        }
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Equivalently, the vertices can be 2-colored with no edge joining same-colored vertices. To prove a graph is bipartite, exhibit the two-part split; to prove it is not, exhibit an odd cycle."
+      },
+      {
+       "label": "Not-bipartite argument",
+       "chain": [
+        {
+         "name": "find a triangle",
+         "role": "odd cycle"
+        },
+        {
+         "name": "2-color it",
+         "role": "attempt"
+        },
+        {
+         "name": "pigeonhole",
+         "role": "two share a part"
+        },
+        {
+         "name": "same-part edge",
+         "role": "contradiction"
+        }
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "A triangle (K_3) is the shortest odd cycle and the usual witness that a graph is not bipartite."
+      }
+     ],
+     "aliases": [
+      "2-colorable",
+      "bipartition"
+     ],
+     "related": [
+      "complete bipartite graph",
+      "chromatic number",
+      "cycle graph"
+     ]
+    },
+    {
+     "term": "complete bipartite graph",
+     "type": "syntax",
+     "essence": "K_{m,n} joins every one of m vertices to every one of n vertices, with no edges inside either group.",
+     "detail": [
+      {
+       "label": "Edge count",
+       "formula": [
+        {
+         "tex": "|E| = m \\cdot n",
+         "caption": "every cross pair joined"
+        }
+       ],
+       "where": [
+        [
+         "m, n",
+         "sizes of the two parts"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "K_{m,n} is bipartite by construction; K_{3,3} is the classic non-planar witness (the utilities graph)."
+      }
+     ],
+     "aliases": [
+      "K_{m,n}",
+      "Kmn"
+     ],
+     "related": [
+      "bipartite graph",
+      "planar graph",
+      "complete graph"
+     ]
+    },
+    {
+     "term": "subgraph",
+     "type": "concept",
+     "essence": "A graph formed by taking a subset of another graph's vertices and edges.",
+     "detail": [
+      {
+       "label": "Form/Range",
+       "body": "Every edge kept must have both endpoints kept. A spanning subgraph keeps all vertices; the complement keeps all vertices and exactly the missing edges."
+      },
+      {
+       "label": "Use when",
+       "body": "Isolating structure — a clique, a cycle, or a spanning tree — inside a larger graph."
+      }
+     ],
+     "related": [
+      "spanning tree",
+      "complete graph"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "representation",
+   "name": "Representing graphs & isomorphism",
+   "glance": "Graphs are stored as adjacency lists or matrices; the matrix form is the workhorse because its entries count edges and its powers count walks. Isomorphism asks whether two drawings are the same graph relabeled.",
+   "entries": [
+    {
+     "term": "adjacency list",
+     "type": "syntax",
+     "essence": "A representation listing, for each vertex, the vertices adjacent to it.",
+     "detail": [
+      {
+       "label": "Use when",
+       "body": "The graph is sparse (few edges); storage is proportional to the number of edges, not to n²."
+      },
+      {
+       "label": "Example",
+       "code": "a: b, c\nb: a, c\nc: a, b   (a triangle on a,b,c)"
+      }
+     ],
+     "related": [
+      "adjacency matrix"
+     ]
+    },
+    {
+     "term": "adjacency matrix",
+     "type": "syntax",
+     "essence": "An n×n matrix whose (i,j) entry is the number of edges from vertex i to vertex j.",
+     "detail": [
+      {
+       "label": "Entry meaning",
+       "formula": [
+        {
+         "tex": "A_{ij} = \\#\\ \\text{edges from } i \\text{ to } j",
+         "caption": "0/1 for a simple graph"
+        }
+       ],
+       "where": [
+        [
+         "A_{ij}",
+         "entry in row i, column j"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "For a simple graph entries are 0 or 1; for a multigraph an entry can be 2, 3, … (parallel-edge count — the classic trap). Undirected graphs give a symmetric matrix; a loop puts 2 on the diagonal (undirected) or 1 (directed)."
+      },
+      {
+       "label": "K_4 adjacency matrix",
+       "code": "0 1 1 1\n1 0 1 1\n1 1 0 1\n1 1 1 0"
+      }
+     ],
+     "aliases": [
+      "adjacency matrix A"
+     ],
+     "related": [
+      "walk counting with matrix powers",
+      "incidence matrix",
+      "complete graph"
+     ]
+    },
+    {
+     "term": "incidence matrix",
+     "type": "syntax",
+     "essence": "A matrix with a row per vertex and a column per edge, entry 1 when the vertex is an endpoint of that edge.",
+     "detail": [
+      {
+       "label": "Use when",
+       "body": "You need edges indexed explicitly (e.g. tracking specific edges); less common on exams than the adjacency matrix."
+      },
+      {
+       "label": "Note",
+       "body": "A loop is marked in that edge's column at its single vertex."
+      }
+     ],
+     "related": [
+      "adjacency matrix"
+     ]
+    },
+    {
+     "term": "walk counting with matrix powers",
+     "type": "concept",
+     "essence": "The (i,j) entry of the nth power of the adjacency matrix counts walks of length n from i to j.",
+     "detail": [
+      {
+       "label": "Theorem",
+       "formula": [
+        {
+         "tex": "(A^n)_{ij} = \\#\\ \\text{walks of length } n \\text{ from } i \\text{ to } j",
+         "caption": "walks may repeat vertices/edges"
+        }
+       ],
+       "where": [
+        [
+         "A",
+         "adjacency matrix"
+        ],
+        [
+         "n",
+         "walk length (number of edges)"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Length-2 walks from i to j equal the number of common neighbors: (A²)_{ij}. Length-3 walks are (A³)_{ij}, computed as row i of A² times column j of A."
+      },
+      {
+       "label": "K_4 example",
+       "code": "For K_4, A = J − I, so A² = 2J + I and A³ = 7J − I:\n  length-2 walks between distinct vertices = 2\n  length-3 walks between distinct vertices = 7"
+      }
+     ],
+     "aliases": [
+      "paths of length n",
+      "A^n"
+     ],
+     "related": [
+      "adjacency matrix",
+      "connectivity"
+     ]
+    },
+    {
+     "term": "graph isomorphism",
+     "type": "concept",
+     "essence": "Two graphs are isomorphic when a relabeling of one's vertices turns it exactly into the other.",
+     "detail": [
+      {
+       "label": "Definition",
+       "formula": [
+        {
+         "tex": "G \\cong H",
+         "caption": "an adjacency-preserving bijection exists"
+        }
+       ],
+       "where": [
+        [
+         "G \\cong H",
+         "there is a bijection of vertices preserving all adjacencies"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "To prove isomorphic: anchor on vertices with a unique property (e.g. those in no 4-cycle), match them, extend the matching through shared adjacencies, then verify every edge corresponds. To prove not isomorphic: name a single invariant that differs."
+      },
+      {
+       "label": "Note",
+       "body": "A bijection is a one-to-one, onto mapping; here it must send edges to edges and non-edges to non-edges."
+      }
+     ],
+     "aliases": [
+      "isomorphic graphs"
+     ],
+     "related": [
+      "isomorphism invariant",
+      "bijection"
+     ]
+    },
+    {
+     "term": "isomorphism invariant",
+     "type": "concept",
+     "essence": "A property that isomorphic graphs must share, used to disprove isomorphism by exhibiting a difference.",
+     "detail": [
+      {
+       "label": "Common invariants",
+       "facts": [
+        [
+         "order",
+         "number of vertices"
+        ],
+        [
+         "size",
+         "number of edges"
+        ],
+        [
+         "degree sequence",
+         "multiset of vertex degrees"
+        ],
+        [
+         "cycles",
+         "number of cycles of each length"
+        ],
+        [
+         "connectivity",
+         "connected or not; component count"
+        ],
+        [
+         "bipartite",
+         "bipartite or not"
+        ]
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Two graphs share an invariant, that is necessary but not sufficient; a single differing invariant is a complete proof they are not isomorphic."
+      }
+     ],
+     "related": [
+      "graph isomorphism",
+      "degree sequence"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "connectivity",
+   "name": "Paths & connectivity",
+   "glance": "Paths and circuits move along edges; connectivity asks whether every vertex is reachable from every other. Components count the separate pieces, and cut vertices/edges are the single points whose removal breaks connection.",
+   "entries": [
+    {
+     "term": "path",
+     "type": "concept",
+     "essence": "A sequence of edges leading from vertex to vertex; its length is the number of edges.",
+     "detail": [
+      {
+       "label": "Form/Range",
+       "body": "A simple path repeats no edge; the endpoints may differ. A circuit (closed path) begins and ends at the same vertex."
+      },
+      {
+       "label": "Note",
+       "body": "In a directed graph a path must follow arrow directions."
+      }
+     ],
+     "aliases": [
+      "walk",
+      "trail"
+     ],
+     "related": [
+      "circuit",
+      "connected graph",
+      "walk counting with matrix powers"
+     ]
+    },
+    {
+     "term": "circuit",
+     "type": "concept",
+     "essence": "A path that begins and ends at the same vertex.",
+     "detail": [
+      {
+       "label": "Note",
+       "body": "Also called a cycle when it repeats no vertex except the shared endpoints. Euler and Hamilton circuits are the two headline special cases."
+      },
+      {
+       "label": "Use when",
+       "body": "Detecting cycles (a tree has none) or checking Euler/Hamilton conditions."
+      }
+     ],
+     "aliases": [
+      "cycle",
+      "closed walk"
+     ],
+     "related": [
+      "path",
+      "euler circuit",
+      "hamilton circuit"
+     ]
+    },
+    {
+     "term": "connected graph",
+     "type": "concept",
+     "essence": "An undirected graph in which there is a path between every pair of vertices.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "If some pair has no connecting path, the graph is disconnected and splits into components."
+      },
+      {
+       "label": "Note",
+       "body": "A graph is connected iff it has a spanning tree."
+      }
+     ],
+     "related": [
+      "connected component",
+      "spanning tree",
+      "directed connectivity"
+     ]
+    },
+    {
+     "term": "connected component",
+     "type": "concept",
+     "essence": "A maximal connected piece of a graph.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Count components by counting the separate pieces; an isolated vertex is its own component. Edges that merely cross in a drawing (with no vertex at the crossing) do not connect anything."
+      },
+      {
+       "label": "Use when",
+       "body": "Answering 'how many pieces' — a common exam item where the trap is misreading crossings as junctions."
+      }
+     ],
+     "aliases": [
+      "component"
+     ],
+     "related": [
+      "connected graph",
+      "isolated vertex"
+     ]
+    },
+    {
+     "term": "directed connectivity",
+     "type": "concept",
+     "essence": "A digraph is strongly connected if every vertex reaches every other along arrows, and weakly connected if it is connected when directions are ignored.",
+     "detail": [
+      {
+       "label": "Two notions",
+       "facts": [
+        [
+         "strongly connected",
+         "directed path u→v and v→u for every pair"
+        ],
+        [
+         "weakly connected",
+         "connected after replacing arrows with undirected edges"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Strongly connected implies weakly connected, never the reverse."
+      }
+     ],
+     "aliases": [
+      "strongly connected",
+      "weakly connected"
+     ],
+     "related": [
+      "directed graph",
+      "connected graph"
+     ]
+    },
+    {
+     "term": "cut vertex and cut edge",
+     "type": "concept",
+     "essence": "A cut vertex is a vertex whose removal disconnects the graph; a cut edge (bridge) is an edge whose removal does.",
+     "detail": [
+      {
+       "label": "Connectivity measures",
+       "formula": [
+        {
+         "tex": "\\kappa(G),\\ \\lambda(G)",
+         "caption": "vertex and edge connectivity"
+        }
+       ],
+       "where": [
+        [
+         "\\kappa(G)",
+         "fewest vertices whose removal disconnects G"
+        ],
+        [
+         "\\lambda(G)",
+         "fewest edges whose removal disconnects G"
+        ]
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Identifying single points of failure; a bridge lies in no cycle."
+      }
+     ],
+     "aliases": [
+      "articulation point",
+      "bridge",
+      "vertex connectivity",
+      "edge connectivity"
+     ],
+     "related": [
+      "connected graph"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "euler-hamilton",
+   "name": "Euler & Hamilton paths",
+   "glance": "Two look-alike questions that are constantly confused: an Euler trail uses every edge once, a Hamilton path visits every vertex once. Euler has a clean degree test; Hamilton has none, only sufficient conditions.",
+   "entries": [
+    {
+     "term": "euler circuit",
+     "type": "concept",
+     "essence": "A circuit that uses every edge of the graph exactly once, returning to the start.",
+     "detail": [
+      {
+       "label": "Existence test",
+       "columns": [
+        "Setting",
+        "Euler circuit exists iff"
+       ],
+       "rows": [
+        [
+         "Undirected",
+         "connected and every vertex has even degree"
+        ],
+        [
+         "Directed",
+         "connected and in-degree = out-degree at every vertex"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Even degree everywhere lets the trail enter and leave each vertex in matched pairs and close up. Trace it by saving bridge edges for last."
+      },
+      {
+       "label": "Note",
+       "body": "Euler = every EDGE once (contrast Hamilton = every vertex once)."
+      }
+     ],
+     "aliases": [
+      "Eulerian circuit"
+     ],
+     "related": [
+      "euler path",
+      "hamilton circuit",
+      "degree"
+     ]
+    },
+    {
+     "term": "euler path",
+     "type": "concept",
+     "essence": "An open trail that uses every edge exactly once, starting and ending at different vertices.",
+     "detail": [
+      {
+       "label": "Existence test",
+       "columns": [
+        "Setting",
+        "Euler path (open) exists iff"
+       ],
+       "rows": [
+        [
+         "Undirected",
+         "connected and exactly two vertices of odd degree"
+        ],
+        [
+         "Directed",
+         "connected; one vertex out−in = 1 (start), one in−out = 1 (end), rest balanced"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "The two odd-degree vertices must be the endpoints; the path runs from one to the other. Directed version: start where an extra edge leaves, end where an extra edge enters."
+      },
+      {
+       "label": "Undirected example",
+       "code": "Degrees a4 b4 c3 d4 e4 f3 -> only c,f odd -> Euler path exists,\nruns between c and f, using all edges once."
+      }
+     ],
+     "aliases": [
+      "Eulerian path",
+      "Euler trail"
+     ],
+     "related": [
+      "euler circuit",
+      "degree"
+     ]
+    },
+    {
+     "term": "hamilton path",
+     "type": "concept",
+     "essence": "A path that visits every vertex exactly once.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "No efficient degree test exists — build one by hand or argue none exists. If the graph is two blobs joined by a single bridge edge, a Hamilton path must cover one blob, cross the bridge once, then cover the other."
+      },
+      {
+       "label": "Use when",
+       "body": "Asked to exhibit a vertex-covering route; a Hamilton circuit is a Hamilton path that returns to its start."
+      },
+      {
+       "label": "Note",
+       "body": "Hamilton = every VERTEX once (contrast Euler = every edge once)."
+      }
+     ],
+     "aliases": [
+      "Hamiltonian path",
+      "hamilton circuit"
+     ],
+     "related": [
+      "dirac theorem",
+      "ore theorem",
+      "euler path",
+      "traveling salesman problem"
+     ]
+    },
+    {
+     "term": "dirac theorem",
+     "type": "concept",
+     "essence": "If every vertex of a simple graph on n≥3 vertices has degree at least n/2, the graph has a Hamilton circuit.",
+     "detail": [
+      {
+       "label": "Condition",
+       "formula": [
+        {
+         "tex": "\\text{deg}(v) \\geq \\frac{n}{2}\\ \\text{ for all } v \\ \\Rightarrow\\ \\text{Hamilton circuit}",
+         "caption": "sufficient, not necessary"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of vertices, n ≥ 3"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Sufficient only: failing the bound does not prove a Hamilton circuit is absent."
+      }
+     ],
+     "related": [
+      "ore theorem",
+      "hamilton path"
+     ]
+    },
+    {
+     "term": "ore theorem",
+     "type": "concept",
+     "essence": "If deg(u)+deg(v) ≥ n for every non-adjacent pair in a simple graph on n≥3 vertices, it has a Hamilton circuit.",
+     "detail": [
+      {
+       "label": "Condition",
+       "formula": [
+        {
+         "tex": "\\text{deg}(u) + \\text{deg}(v) \\geq n \\ \\text{for all nonadjacent } u,v",
+         "caption": "sufficient, not necessary"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of vertices, n ≥ 3"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Weaker hypothesis than Dirac and still sufficient; again, failing it proves nothing."
+      }
+     ],
+     "related": [
+      "dirac theorem",
+      "hamilton path"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shortest-paths",
+   "name": "Weighted graphs & shortest paths",
+   "glance": "Edges carry weights, and the shortest route minimizes total weight, not edge count. Dijkstra's algorithm finds it greedily; the traveling salesman problem is the hard cousin with no efficient algorithm.",
+   "entries": [
+    {
+     "term": "weighted graph",
+     "type": "concept",
+     "essence": "A graph whose edges carry numerical weights representing distance, cost, or time.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Path length becomes the sum of edge weights along it, so the fewest-edges route and the least-weight route can differ."
+      },
+      {
+       "label": "Use when",
+       "body": "Modeling road networks, airline fares, or transmission delays."
+      }
+     ],
+     "related": [
+      "dijkstra's algorithm",
+      "traveling salesman problem",
+      "minimum spanning tree"
+     ]
+    },
+    {
+     "term": "dijkstra's algorithm",
+     "type": "concept",
+     "essence": "A greedy algorithm that finds shortest paths from one source to all vertices in a graph with non-negative weights.",
+     "detail": [
+      {
+       "label": "Procedure",
+       "chain": [
+        {
+         "name": "source = 0, rest = ∞",
+         "role": "init"
+        },
+        {
+         "name": "pick nearest unvisited",
+         "role": "select"
+        },
+        {
+         "name": "finalize it",
+         "role": "commit"
+        },
+        {
+         "name": "relax neighbors",
+         "role": "update"
+        },
+        {
+         "name": "repeat",
+         "role": "loop"
+        }
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Keep a tentative distance for each vertex. Repeatedly finalize the unvisited vertex with the smallest tentative distance, then relax its neighbors: if reaching a neighbor through it is cheaper, lower that neighbor's tentative distance. The finalized value is the true shortest distance."
+      },
+      {
+       "label": "Use when",
+       "body": "Single-source shortest paths with non-negative weights. The trap: small-weight interior edges create shortcuts — always test whether routing through them beats the obvious route."
+      },
+      {
+       "label": "Worked check",
+       "code": "Edges A-C 3, C-D 3, B-C 2, D-E 1... Dijkstra from A finalizes\nA0 C3 B4 D6 E7 ...  so A→D = 6 via A-C-D, not the longer A-B-D."
+      }
+     ],
+     "aliases": [
+      "Dijkstra",
+      "shortest path algorithm"
+     ],
+     "related": [
+      "weighted graph",
+      "traveling salesman problem"
+     ]
+    },
+    {
+     "term": "traveling salesman problem",
+     "type": "concept",
+     "essence": "The problem of finding the shortest Hamilton circuit in a weighted complete graph.",
+     "detail": [
+      {
+       "label": "Brute-force size",
+       "formula": [
+        {
+         "tex": "\\frac{(n-1)!}{2}\\ \\text{distinct circuits}",
+         "caption": "why exhaustive search is infeasible"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of vertices (cities)"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Visit every city once and return, minimizing total weight. No known efficient (polynomial-time) algorithm; exact solving checks factorially many routes, so practice uses approximation."
+      },
+      {
+       "label": "Note",
+       "body": "Contrast Dijkstra (efficient, shortest path) with TSP (hard, shortest circuit through all)."
+      }
+     ],
+     "aliases": [
+      "TSP"
+     ],
+     "related": [
+      "hamilton path",
+      "dijkstra's algorithm"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "planar",
+   "name": "Planar graphs",
+   "glance": "A graph is planar if it can be drawn with no crossing edges. Euler's formula ties vertices, edges, and regions together, and its corollaries expose the two graphs — K5 and K3,3 — that no planar graph can contain.",
+   "entries": [
+    {
+     "term": "planar graph",
+     "type": "concept",
+     "essence": "A graph that can be drawn in the plane with no two edges crossing.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Crossings in some drawing do not matter; planarity asks whether any crossing-free drawing exists. Such a drawing is a planar representation."
+      },
+      {
+       "label": "Use when",
+       "body": "Circuit layout, map-like structures, and any setting where crossings are costly."
+      }
+     ],
+     "aliases": [
+      "planar",
+      "planarity"
+     ],
+     "related": [
+      "euler's formula for planar graphs",
+      "kuratowski's theorem",
+      "region"
+     ]
+    },
+    {
+     "term": "region",
+     "type": "concept",
+     "essence": "An area of the plane bounded by edges in a planar drawing, including the single unbounded outer region.",
+     "detail": [
+      {
+       "label": "Note",
+       "body": "Region count r is an intrinsic quantity of a connected planar graph — the same for every planar drawing — and appears in Euler's formula."
+      },
+      {
+       "label": "Use when",
+       "body": "Applying Euler's formula to solve for r, or reasoning about faces."
+      }
+     ],
+     "aliases": [
+      "face"
+     ],
+     "related": [
+      "euler's formula for planar graphs"
+     ]
+    },
+    {
+     "term": "euler's formula for planar graphs",
+     "type": "formula",
+     "essence": "For a connected planar simple graph, vertices minus edges plus regions equals 2.",
+     "detail": [
+      {
+       "label": "The formula",
+       "formula": [
+        {
+         "tex": "v - e + r = 2",
+         "caption": "connected planar graph"
+        }
+       ],
+       "where": [
+        [
+         "v",
+         "number of vertices"
+        ],
+        [
+         "e",
+         "number of edges"
+        ],
+        [
+         "r",
+         "number of regions (faces), including the outer one"
+        ]
+       ]
+      },
+      {
+       "label": "Worked example",
+       "code": "Connected planar graph, v=6, e=10:\n  r = 2 − v + e = 2 − 6 + 10 = 6 regions."
+      },
+      {
+       "label": "Note",
+       "body": "Holds only for connected planar graphs; for c components use v − e + r = 1 + c."
+      }
+     ],
+     "aliases": [
+      "Euler's formula",
+      "v-e+r=2"
+     ],
+     "related": [
+      "planar graph",
+      "planarity edge bounds",
+      "region"
+     ]
+    },
+    {
+     "term": "planarity edge bounds",
+     "type": "formula",
+     "essence": "A connected planar simple graph with v≥3 has at most 3v−6 edges, or 2v−4 if it is triangle-free.",
+     "detail": [
+      {
+       "label": "Bounds",
+       "formula": [
+        {
+         "tex": "e \\leq 3v - 6",
+         "caption": "simple planar, v ≥ 3"
+        },
+        {
+         "tex": "e \\leq 2v - 4",
+         "caption": "additionally triangle-free (girth ≥ 4)"
+        }
+       ],
+       "where": [
+        [
+         "v",
+         "number of vertices"
+        ],
+        [
+         "e",
+         "number of edges"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Each region is bounded by at least 3 edges (or 4 if triangle-free), and each edge borders two regions; combining with Euler's formula gives the bounds. Violating a bound proves non-planarity."
+      },
+      {
+       "label": "Note",
+       "body": "Every planar simple graph also has a vertex of degree at most 5."
+      }
+     ],
+     "aliases": [
+      "3v-6",
+      "2v-4"
+     ],
+     "related": [
+      "euler's formula for planar graphs",
+      "kuratowski's theorem"
+     ]
+    },
+    {
+     "term": "kuratowski's theorem",
+     "type": "concept",
+     "essence": "A graph is planar if and only if it contains no subgraph that is a subdivision of K5 or K3,3.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "A subdivision inserts extra degree-2 vertices along edges; K5 and K3,3 (with subdivisions) are the only obstructions to planarity."
+      },
+      {
+       "label": "The two witnesses",
+       "facts": [
+        [
+         "K5",
+         "v=5, e=10; 3v−6 = 9 < 10, so not planar"
+        ],
+        [
+         "K3,3",
+         "v=6, e=9; triangle-free needs e ≤ 2v−4 = 8, but 9 > 8, so not planar"
+        ]
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Proving non-planarity structurally, or confirming the two forbidden graphs by the edge bounds."
+      }
+     ],
+     "aliases": [
+      "Kuratowski",
+      "K5",
+      "K3,3",
+      "forbidden subgraph"
+     ],
+     "related": [
+      "planarity edge bounds",
+      "complete graph",
+      "complete bipartite graph"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "coloring",
+   "name": "Graph coloring",
+   "glance": "A proper coloring gives adjacent vertices different colors; the chromatic number is the fewest colors that works. It equals 2 exactly for bipartite graphs, n for complete graphs, and never exceeds 4 for planar graphs.",
+   "entries": [
+    {
+     "term": "proper coloring",
+     "type": "concept",
+     "essence": "An assignment of colors to vertices so that no edge joins two vertices of the same color.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Colors partition the vertices into independent sets (no edges inside a color class). Modeling: colors are time slots, frequencies, or registers, and edges are conflicts."
+      },
+      {
+       "label": "Use when",
+       "body": "Scheduling, register allocation, frequency assignment, and map coloring."
+      }
+     ],
+     "aliases": [
+      "vertex coloring",
+      "coloring"
+     ],
+     "related": [
+      "chromatic number",
+      "four color theorem",
+      "bipartite graph"
+     ]
+    },
+    {
+     "term": "chromatic number",
+     "type": "formula",
+     "essence": "The chromatic number χ(G) is the minimum number of colors needed for a proper coloring.",
+     "detail": [
+      {
+       "label": "Key values",
+       "formula": [
+        {
+         "tex": "\\chi(K_n) = n",
+         "caption": "complete graph"
+        },
+        {
+         "tex": "\\chi(C_n) = 2\\ (n\\ \\text{even}),\\ 3\\ (n\\ \\text{odd})",
+         "caption": "cycle"
+        }
+       ],
+       "where": [
+        [
+         "\\chi(G)",
+         "minimum colors for a proper coloring of G"
+        ]
+       ]
+      },
+      {
+       "label": "Anchor cases",
+       "facts": [
+        [
+         "χ = 1",
+         "the graph has no edges"
+        ],
+        [
+         "χ = 2",
+         "bipartite with at least one edge (equivalently: has an edge, no odd cycle)"
+        ],
+        [
+         "lower bound",
+         "χ(G) ≥ size of the largest clique K_k it contains"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Pin χ with a two-part argument: a coloring using k colors proves χ ≤ k, and a K_k subgraph (or an odd cycle for ≥3) proves χ ≥ k. When both meet, χ = k."
+      },
+      {
+       "label": "Note",
+       "body": "Brooks' theorem: χ(G) ≤ Δ(G), the maximum degree, except when G is a complete graph or an odd cycle (then χ = Δ + 1)."
+      }
+     ],
+     "aliases": [
+      "chromatic number χ",
+      "chi"
+     ],
+     "related": [
+      "proper coloring",
+      "four color theorem",
+      "bipartite graph",
+      "complete graph"
+     ]
+    },
+    {
+     "term": "four color theorem",
+     "type": "concept",
+     "essence": "Every planar graph can be properly colored with at most four colors.",
+     "detail": [
+      {
+       "label": "Statement",
+       "formula": [
+        {
+         "tex": "G\\ \\text{planar} \\ \\Rightarrow\\ \\chi(G) \\leq 4",
+         "caption": "famous, computer-assisted proof"
+        }
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Connects coloring to planarity: map regions become vertices, shared borders become edges, and four colors always suffice."
+      }
+     ],
+     "aliases": [
+      "4-color theorem",
+      "map coloring"
+     ],
+     "related": [
+      "chromatic number",
+      "planar graph"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tree-fundamentals",
+   "name": "Tree fundamentals",
+   "glance": "A tree is a connected acyclic graph — equivalently, a graph with a unique path between any two vertices — and always has one fewer edge than vertices. Rooting it gives the parent/child/leaf family vocabulary.",
+   "entries": [
+    {
+     "term": "tree",
+     "type": "concept",
+     "essence": "A connected undirected graph with no simple circuits.",
+     "detail": [
+      {
+       "label": "Equivalent characterizations",
+       "formula": [
+        {
+         "tex": "\\text{connected} \\land \\text{acyclic} \\iff \\text{unique simple path between any two vertices}",
+         "caption": "two ways to say 'tree'"
+        }
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "No cycles plus connectedness forces a unique route between any pair. A collection of disjoint trees is a forest."
+      },
+      {
+       "label": "Note",
+       "body": "A connected graph with n vertices and n−1 edges is automatically a tree."
+      }
+     ],
+     "aliases": [
+      "free tree",
+      "forest"
+     ],
+     "related": [
+      "tree edge count",
+      "rooted tree",
+      "spanning tree"
+     ]
+    },
+    {
+     "term": "tree edge count",
+     "type": "formula",
+     "essence": "A tree with n vertices has exactly n−1 edges.",
+     "detail": [
+      {
+       "label": "Theorem",
+       "formula": [
+        {
+         "tex": "|E| = n - 1",
+         "caption": "tree on n vertices"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of vertices"
+        ]
+       ]
+      },
+      {
+       "label": "Worked example",
+       "code": "A tree with 10,000 vertices has 10,000 − 1 = 9,999 edges."
+      },
+      {
+       "label": "Note",
+       "body": "The converse holds when the graph is connected: connected + (n−1) edges ⇒ tree."
+      }
+     ],
+     "aliases": [
+      "n-1 edges"
+     ],
+     "related": [
+      "tree",
+      "spanning tree"
+     ]
+    },
+    {
+     "term": "rooted tree",
+     "type": "concept",
+     "essence": "A tree with one vertex chosen as the root, orienting every edge away from it.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Choosing a root imposes levels and a parent/child hierarchy; the same underlying tree yields different rooted trees for different root choices."
+      },
+      {
+       "label": "Use when",
+       "body": "Any hierarchy — file systems, expression trees, decision trees."
+      }
+     ],
+     "related": [
+      "tree family vocabulary",
+      "m-ary tree",
+      "tree traversal"
+     ]
+    },
+    {
+     "term": "tree family vocabulary",
+     "type": "facts",
+     "essence": "In a rooted tree, each non-root vertex has a parent, and vertices are classified by their descendants.",
+     "detail": [
+      {
+       "label": "Terms",
+       "facts": [
+        [
+         "parent",
+         "the unique vertex directly above v"
+        ],
+        [
+         "child",
+         "a vertex directly below v"
+        ],
+        [
+         "siblings",
+         "vertices sharing the same parent"
+        ],
+        [
+         "ancestors",
+         "all vertices on the path from v up to the root"
+        ],
+        [
+         "descendants",
+         "all vertices in the subtree below v"
+        ],
+        [
+         "leaf",
+         "a vertex with no children"
+        ],
+        [
+         "internal vertex",
+         "a vertex with at least one child (root counts if it has children)"
+        ],
+        [
+         "subtree at v",
+         "v together with all its descendants — never its ancestors"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Leaves and internal vertices are complementary: every vertex is exactly one or the other."
+      }
+     ],
+     "aliases": [
+      "leaf",
+      "internal vertex",
+      "parent",
+      "child",
+      "sibling",
+      "descendant",
+      "ancestor",
+      "subtree"
+     ],
+     "related": [
+      "rooted tree",
+      "level and height"
+     ]
+    },
+    {
+     "term": "level and height",
+     "type": "concept",
+     "essence": "The level of a vertex is its distance from the root; the height of the tree is the largest level.",
+     "detail": [
+      {
+       "label": "Definitions",
+       "formula": [
+        {
+         "tex": "\\text{level}(v) = \\text{path length from root to } v",
+         "caption": "root is level 0"
+        },
+        {
+         "tex": "\\text{height} = \\max_v\\ \\text{level}(v)",
+         "caption": "deepest level"
+        }
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Bounding leaf counts of m-ary trees and reasoning about balanced trees."
+      }
+     ],
+     "aliases": [
+      "depth"
+     ],
+     "related": [
+      "m-ary tree counting",
+      "tree family vocabulary"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m-ary",
+   "name": "m-ary trees & addressing",
+   "glance": "m-ary trees cap or fix the number of children per vertex; the full-m-ary counting formulas relate internal vertices, leaves, and totals. The universal address system labels vertices so level and sibling count read straight off the address.",
+   "entries": [
+    {
+     "term": "m-ary tree",
+     "type": "concept",
+     "essence": "A rooted tree in which every vertex has at most m children; a binary tree is the m=2 case.",
+     "detail": [
+      {
+       "label": "Form/Range",
+       "body": "In a full m-ary tree every internal vertex has exactly m children. An ordered rooted tree fixes the left-to-right order of children; a binary tree distinguishes a left and a right child."
+      },
+      {
+       "label": "Use when",
+       "body": "Bounding structure — search trees (binary), Huffman trees, expression trees."
+      }
+     ],
+     "aliases": [
+      "binary tree",
+      "full m-ary tree",
+      "ordered rooted tree"
+     ],
+     "related": [
+      "m-ary tree counting",
+      "binary search tree",
+      "level and height"
+     ]
+    },
+    {
+     "term": "m-ary tree counting",
+     "type": "formula",
+     "essence": "A full m-ary tree with i internal vertices has mi+1 vertices and (m−1)i+1 leaves.",
+     "detail": [
+      {
+       "label": "Counting theorems",
+       "formula": [
+        {
+         "tex": "n = m\\,i + 1",
+         "caption": "total vertices"
+        },
+        {
+         "tex": "\\ell = (m-1)\\,i + 1",
+         "caption": "leaves"
+        }
+       ],
+       "where": [
+        [
+         "m",
+         "children per internal vertex"
+        ],
+        [
+         "i",
+         "number of internal vertices"
+        ],
+        [
+         "n",
+         "total vertices"
+        ],
+        [
+         "\\ell",
+         "number of leaves"
+        ]
+       ]
+      },
+      {
+       "label": "Worked example",
+       "code": "Full 5-ary tree with 101 internal vertices:\n  n = 5·101 + 1 = 506 vertices."
+      },
+      {
+       "label": "Note",
+       "body": "Invert as needed: i = (n−1)/m and ℓ = ((m−1)n + 1)/m."
+      }
+     ],
+     "aliases": [
+      "mi+1",
+      "full m-ary formula"
+     ],
+     "related": [
+      "m-ary tree",
+      "tree edge count"
+     ]
+    },
+    {
+     "term": "m-ary height bound",
+     "type": "formula",
+     "essence": "An m-ary tree of height h has at most m^h leaves, so a tree with ℓ leaves has height at least ⌈log_m ℓ⌉.",
+     "detail": [
+      {
+       "label": "Bounds",
+       "formula": [
+        {
+         "tex": "\\ell \\leq m^{h}",
+         "caption": "leaves capped by height"
+        },
+        {
+         "tex": "h \\geq ⌈\\text{log}_m\\ \\ell⌉",
+         "caption": "balanced tree meets this"
+        }
+       ],
+       "where": [
+        [
+         "h",
+         "height"
+        ],
+        [
+         "\\ell",
+         "number of leaves"
+        ],
+        [
+         "m",
+         "children per internal vertex"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "A balanced full m-ary tree achieves h = ⌈log_m ℓ⌉ — the shortest possible."
+      }
+     ],
+     "aliases": [
+      "log_m",
+      "balanced tree"
+     ],
+     "related": [
+      "m-ary tree counting",
+      "level and height"
+     ]
+    },
+    {
+     "term": "universal address system",
+     "type": "syntax",
+     "essence": "A labeling of an ordered rooted tree where the root is 0 and each vertex's children are numbered left to right as parent.1, parent.2, ….",
+     "detail": [
+      {
+       "label": "Reading an address",
+       "facts": [
+        [
+         "level",
+         "the number of parts in the address (3.4.5.2.4 → level 5)"
+        ],
+        [
+         "which child",
+         "the last number (…​.4 → the 4th child)"
+        ],
+        [
+         "sibling count",
+         "last number minus 1 (4th child ⇒ at least 3 siblings)"
+        ],
+        [
+         "ordering",
+         "lexicographic (1 < 1.1 < 1.2 < 2) — equals preorder"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Every internal vertex is a prefix of some leaf address. Reconstruction fails when a .j child (j≥2) appears with no lower-numbered sibling present — no such tree exists."
+      },
+      {
+       "label": "Lexicographic order",
+       "code": "0 < 1 < 1.1 < 1.2 < 2 < 3"
+      }
+     ],
+     "aliases": [
+      "addresses",
+      "lexicographic order"
+     ],
+     "related": [
+      "m-ary tree",
+      "tree traversal",
+      "preorder traversal"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tree-applications",
+   "name": "Applications of trees",
+   "glance": "Trees encode ordered data (binary search trees), optimal codes (Huffman), and arithmetic expressions. Reading an expression tree in the three traversal orders yields prefix, infix, and postfix notation.",
+   "entries": [
+    {
+     "term": "binary search tree",
+     "type": "concept",
+     "essence": "A binary tree where every vertex's left subtree holds smaller keys and its right subtree holds larger keys.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Insert or search by comparing to the current vertex and going left if smaller, right if larger, recursing to an empty spot. Cost is O(h) — O(log n) when balanced."
+      },
+      {
+       "label": "Use when",
+       "body": "Maintaining a sorted, searchable collection with fast insert and lookup."
+      }
+     ],
+     "aliases": [
+      "BST"
+     ],
+     "related": [
+      "m-ary tree",
+      "tree traversal"
+     ]
+    },
+    {
+     "term": "decision tree",
+     "type": "concept",
+     "essence": "A tree whose internal vertices are test outcomes and whose leaves are final results.",
+     "detail": [
+      {
+       "label": "Use when",
+       "body": "Bounding comparisons — e.g. a comparison sort needs at least ⌈log₂ n!⌉ comparisons, the height of its decision tree."
+      },
+      {
+       "label": "Note",
+       "body": "Each root-to-leaf path is one sequence of decisions leading to an outcome."
+      }
+     ],
+     "related": [
+      "binary search tree",
+      "m-ary height bound"
+     ]
+    },
+    {
+     "term": "prefix code",
+     "type": "concept",
+     "essence": "A binary encoding of symbols in which no codeword is a prefix of another, so a bit string decodes unambiguously.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Represent codewords by a binary tree: left = 0, right = 1, symbols at leaves. Because symbols sit only at leaves, no codeword prefixes another. Huffman coding builds the minimum-expected-length prefix code by repeatedly merging the two lowest-frequency nodes."
+      },
+      {
+       "label": "Use when",
+       "body": "Compression — assigning short codes to frequent symbols."
+      }
+     ],
+     "aliases": [
+      "Huffman coding",
+      "Huffman code"
+     ],
+     "related": [
+      "binary search tree",
+      "expression tree"
+     ]
+    },
+    {
+     "term": "expression tree",
+     "type": "concept",
+     "essence": "A binary tree representing an arithmetic expression, with operators at internal nodes and operands at leaves.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "The outermost operation is the root; each operator's operands are its subtrees. Reading the tree in the three traversal orders produces the three notations."
+      },
+      {
+       "label": "Traversal → notation",
+       "facts": [
+        [
+         "preorder",
+         "prefix (Polish): operator before operands"
+        ],
+        [
+         "inorder",
+         "infix: operator between operands (with parentheses)"
+        ],
+        [
+         "postorder",
+         "postfix (Reverse Polish): operator after operands"
+        ]
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "Evaluate prefix innermost-out (right to left); evaluate postfix left to right with a stack. ↑ denotes exponentiation."
+      }
+     ],
+     "aliases": [
+      "Polish notation",
+      "prefix notation",
+      "postfix notation",
+      "reverse Polish"
+     ],
+     "related": [
+      "tree traversal",
+      "preorder traversal",
+      "postorder traversal"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "traversal",
+   "name": "Tree traversal",
+   "glance": "Three recursive orders visit every vertex of an ordered rooted tree. Preorder puts the root first, postorder puts it last, and inorder puts it between the first subtree and the rest — matching prefix, postfix, and infix notation.",
+   "entries": [
+    {
+     "term": "preorder traversal",
+     "type": "concept",
+     "essence": "Visit the root first, then traverse each subtree left to right in preorder.",
+     "detail": [
+      {
+       "label": "Order",
+       "chain": [
+        {
+         "name": "root",
+         "role": "first"
+        },
+        {
+         "name": "subtree 1",
+         "role": "then"
+        },
+        {
+         "name": "subtree 2",
+         "role": "…"
+        }
+       ]
+      },
+      {
+       "label": "Note",
+       "body": "The first vertex visited is always the root. Equals prefix (Polish) notation and matches lexicographic address order."
+      },
+      {
+       "label": "Example",
+       "code": "a→{b,c}, b→{d,e}:  a, b, d, e, c"
+      }
+     ],
+     "aliases": [
+      "pre-order",
+      "prefix order"
+     ],
+     "related": [
+      "postorder traversal",
+      "inorder traversal",
+      "expression tree",
+      "universal address system"
+     ]
+    },
+    {
+     "term": "inorder traversal",
+     "type": "concept",
+     "essence": "Traverse the leftmost subtree, then visit the root, then the remaining subtrees left to right.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "The root falls between the first subtree and the rest; for a binary tree that is left subtree, root, right subtree."
+      },
+      {
+       "label": "Note",
+       "body": "Equals infix notation. For a binary search tree, inorder yields the keys in sorted order."
+      },
+      {
+       "label": "Example",
+       "code": "a→{b,c}, b→{d,e}:  d, b, e, a, c"
+      }
+     ],
+     "aliases": [
+      "in-order",
+      "infix order"
+     ],
+     "related": [
+      "preorder traversal",
+      "postorder traversal",
+      "binary search tree"
+     ]
+    },
+    {
+     "term": "postorder traversal",
+     "type": "concept",
+     "essence": "Traverse all subtrees left to right first, then visit the root last.",
+     "detail": [
+      {
+       "label": "Note",
+       "body": "The last vertex visited is always the root — a quick way to eliminate wrong answers. Equals postfix (Reverse Polish) notation."
+      },
+      {
+       "label": "Example",
+       "code": "a→{b,c}, b→{d,e}:  d, e, b, c, a"
+      }
+     ],
+     "aliases": [
+      "post-order",
+      "postfix order"
+     ],
+     "related": [
+      "preorder traversal",
+      "inorder traversal",
+      "expression tree"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "spanning",
+   "name": "Spanning trees & minimum spanning trees",
+   "glance": "A spanning tree keeps every vertex of a connected graph but just enough edges to stay connected and acyclic — exactly n−1. Weighted graphs add a goal: the minimum spanning tree, found greedily by Prim's or Kruskal's algorithm.",
+   "entries": [
+    {
+     "term": "spanning tree",
+     "type": "concept",
+     "essence": "A subgraph that is a tree and includes every vertex of a connected graph.",
+     "detail": [
+      {
+       "label": "Edge count",
+       "formula": [
+        {
+         "tex": "|E| = n - 1",
+         "caption": "connected, acyclic, all n vertices"
+        }
+       ],
+       "where": [
+        [
+         "n",
+         "number of vertices in the graph"
+        ]
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Built by removing edges from cycles until none remain, or grown by DFS/BFS. A graph is connected iff it has a spanning tree; a tree is its own spanning tree."
+      },
+      {
+       "label": "Example",
+       "code": "A spanning tree of the 8-vertex cube Q_3 has 8 − 1 = 7 edges."
+      }
+     ],
+     "related": [
+      "depth-first search",
+      "breadth-first search",
+      "minimum spanning tree",
+      "tree edge count"
+     ]
+    },
+    {
+     "term": "depth-first search",
+     "type": "concept",
+     "essence": "A spanning-tree method that goes as deep as possible along unvisited vertices, backtracking when stuck.",
+     "detail": [
+      {
+       "label": "Behavior",
+       "chain": [
+        {
+         "name": "go deep",
+         "role": "advance"
+        },
+        {
+         "name": "dead end",
+         "role": "stuck"
+        },
+        {
+         "name": "backtrack",
+         "role": "retreat"
+        },
+        {
+         "name": "repeat",
+         "role": "loop"
+        }
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Exploring, cycle detection, or producing a deep (backtracking) spanning tree."
+      }
+     ],
+     "aliases": [
+      "DFS"
+     ],
+     "related": [
+      "breadth-first search",
+      "spanning tree"
+     ]
+    },
+    {
+     "term": "breadth-first search",
+     "type": "concept",
+     "essence": "A spanning-tree method that adds all neighbors of the current frontier before going deeper.",
+     "detail": [
+      {
+       "label": "Behavior",
+       "chain": [
+        {
+         "name": "root",
+         "role": "level 0"
+        },
+        {
+         "name": "all neighbors",
+         "role": "level 1"
+        },
+        {
+         "name": "their neighbors",
+         "role": "level 2"
+        }
+       ]
+      },
+      {
+       "label": "Use when",
+       "body": "Shortest-hop trees and shallow, layered spanning trees."
+      }
+     ],
+     "aliases": [
+      "BFS"
+     ],
+     "related": [
+      "depth-first search",
+      "spanning tree"
+     ]
+    },
+    {
+     "term": "minimum spanning tree",
+     "type": "concept",
+     "essence": "A spanning tree of a weighted connected graph with the smallest possible total edge weight.",
+     "detail": [
+      {
+       "label": "Mechanism",
+       "body": "Still n−1 edges, chosen to minimize the weight sum — the cheapest way to connect all vertices. Two greedy algorithms both find one: Prim's and Kruskal's."
+      },
+      {
+       "label": "Use when",
+       "body": "Least-cost networks — cabling, roads, pipelines connecting all sites."
+      }
+     ],
+     "aliases": [
+      "MST"
+     ],
+     "related": [
+      "prim's algorithm",
+      "kruskal's algorithm",
+      "spanning tree",
+      "weighted graph"
+     ]
+    },
+    {
+     "term": "prim's algorithm",
+     "type": "concept",
+     "essence": "Grows a minimum spanning tree from one vertex by repeatedly adding the cheapest edge to a new vertex.",
+     "detail": [
+      {
+       "label": "Procedure",
+       "chain": [
+        {
+         "name": "start vertex",
+         "role": "tree = {v}"
+        },
+        {
+         "name": "cheapest frontier edge",
+         "role": "select"
+        },
+        {
+         "name": "add its new vertex",
+         "role": "grow"
+        },
+        {
+         "name": "until n−1 edges",
+         "role": "stop"
+        }
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Maintain one connected tree; each step adds the least-weight edge joining a tree vertex to a non-tree vertex, avoiding cycles. Stops after n−1 edges."
+      },
+      {
+       "label": "Worked check",
+       "code": "A-B 1, A-C 3, C-D 2, B-C 4, B-D 5 from A:\n  add A-B(1), then C-D(2)? no—must touch tree: add A-C(3), then C-D(2). MST weight = 6."
+      }
+     ],
+     "aliases": [
+      "Prim"
+     ],
+     "related": [
+      "kruskal's algorithm",
+      "minimum spanning tree"
+     ]
+    },
+    {
+     "term": "kruskal's algorithm",
+     "type": "concept",
+     "essence": "Builds a minimum spanning tree by adding globally cheapest edges that do not form a cycle.",
+     "detail": [
+      {
+       "label": "Procedure",
+       "chain": [
+        {
+         "name": "sort edges",
+         "role": "ascending"
+        },
+        {
+         "name": "take cheapest",
+         "role": "scan"
+        },
+        {
+         "name": "skip if it makes a cycle",
+         "role": "test"
+        },
+        {
+         "name": "until n−1 edges",
+         "role": "stop"
+        }
+       ]
+      },
+      {
+       "label": "Mechanism",
+       "body": "Consider edges cheapest-first; add one only if it joins two different components (no cycle). Grows a forest that merges into a single tree after n−1 edges."
+      },
+      {
+       "label": "Worked check",
+       "code": "Edges sorted A-B1, C-D2, A-C3, B-C4, B-D5:\n  take A-B(1), C-D(2), A-C(3) → 3 edges connect 4 vertices. MST weight = 6."
+      }
+     ],
+     "aliases": [
+      "Kruskal"
+     ],
+     "related": [
+      "prim's algorithm",
+      "minimum spanning tree"
+     ]
+    }
+   ]
+  }
+ ]
+}</script>
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --surface-2:#EBEEF2; --border:#DFE3E9;
+  --ink:#171A21; --ink-2:#565E6B; --ink-3:#8B93A0;
+  --accent:#0F7B8A; --accent-ink:#0B5E6A; --accent-soft:#D7EBEE; --accent-line:#8FCBD3;
+  --mark:#FCE8A6;
+  --shadow:0 1px 2px rgba(20,30,45,.06), 0 6px 20px rgba(20,30,45,.05);
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Code","Roboto Mono",monospace;
+  --maxw:760px;
+}
+html[data-theme="dark"]{
+  --bg:#0F1216; --surface:#171B21; --surface-2:#1E232B; --border:#2A303A;
+  --ink:#E7EAEF; --ink-2:#A4ACB8; --ink-3:#727B88;
+  --accent:#33AEBD; --accent-ink:#7FD3DD; --accent-soft:#16323A; --accent-line:#26525C;
+  --mark:#5A4C1E;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+a{color:var(--accent-ink); text-decoration:none}
+mark{background:var(--mark); color:inherit; border-radius:2px; padding:0 .5px}
+
+/* ---------- top bar ---------- */
+.top{
+  position:sticky; top:0; z-index:40;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:saturate(1.4) blur(10px);
+  -webkit-backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;
+}
+.top-inner{max-width:var(--maxw); margin:0 auto; display:flex; flex-direction:column; gap:10px}
+.brand{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.wordmark{display:flex; flex-direction:column; line-height:1.15; min-width:0}
+.wordmark .n{font-family:var(--font-mono); font-weight:600; font-size:16px; letter-spacing:-.2px}
+.wordmark .n b{color:var(--accent-ink); font-weight:700}
+.wordmark .s{font-size:11px; color:var(--ink-3); letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.iconbtn{
+  appearance:none; border:1px solid var(--border); background:var(--surface); color:var(--ink-2);
+  width:38px; height:38px; border-radius:10px; display:grid; place-items:center; cursor:pointer;
+  flex:0 0 auto; transition:border-color .15s, color .15s;
+}
+.iconbtn:hover{color:var(--ink); border-color:var(--accent-line)}
+.iconbtn svg{width:18px; height:18px; display:block}
+.tools{display:flex; gap:8px}
+
+/* ---------- search ---------- */
+.searchwrap{position:relative}
+.searchbar{
+  display:flex; align-items:center; gap:9px;
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:0 12px; height:46px; box-shadow:var(--shadow);
+  transition:border-color .15s, box-shadow .15s;
+}
+.searchbar:focus-within{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+.searchbar svg{width:18px; height:18px; color:var(--ink-3); flex:0 0 auto}
+.searchbar input{
+  border:0; outline:0; background:transparent; color:var(--ink);
+  font-family:var(--font-sans); font-size:16px; width:100%; height:100%;
+}
+.searchbar input::placeholder{color:var(--ink-3)}
+.searchbar .kbd{
+  font-family:var(--font-mono); font-size:11px; color:var(--ink-3);
+  border:1px solid var(--border); border-radius:6px; padding:2px 6px; flex:0 0 auto;
+}
+.clearbtn{appearance:none;border:0;background:transparent;color:var(--ink-3);cursor:pointer;padding:4px;display:none}
+.clearbtn svg{width:16px;height:16px}
+.searchbar.has-q .clearbtn{display:block}
+.searchbar.has-q .kbd{display:none}
+
+/* results overlay */
+.results{
+  position:absolute; left:0; right:0; top:calc(100% + 8px); z-index:50;
+  background:var(--surface); border:1px solid var(--border); border-radius:14px;
+  box-shadow:var(--shadow); overflow:hidden; display:none; max-height:70vh; overflow-y:auto;
+}
+.results.open{display:block}
+.result{
+  display:block; width:100%; text-align:left; appearance:none; border:0; background:transparent;
+  padding:11px 14px; cursor:pointer; border-bottom:1px solid var(--border);
+}
+.result:last-child{border-bottom:0}
+.result:hover,.result.active{background:var(--surface-2)}
+.result .r-top{display:flex; align-items:center; gap:8px}
+.result .r-term{font-family:var(--font-mono); font-size:14px; font-weight:600; color:var(--ink)}
+.result .r-ess{font-size:12.5px; color:var(--ink-2); margin-top:3px; line-height:1.45;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.result .r-hint{padding:11px 14px; font-size:12.5px; color:var(--ink-3)}
+
+/* ---------- filters ---------- */
+.filters{display:flex; gap:7px; overflow-x:auto; padding:2px 2px 1px; margin:-2px; scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{
+  appearance:none; white-space:nowrap; cursor:pointer; flex:0 0 auto;
+  border:1px solid var(--border); background:var(--surface); color:var(--ink-2);
+  font-family:var(--font-mono); font-size:12px; font-weight:500; letter-spacing:.2px;
+  padding:6px 11px; border-radius:999px; transition:.15s; display:flex; align-items:center; gap:6px;
+}
+.chip:hover{color:var(--ink); border-color:var(--accent-line)}
+.chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+.chip .dot{width:7px;height:7px;border-radius:50%}
+.chip .dot.concept{background:var(--accent)} .chip .dot.syntax{background:var(--ink-3)}
+html[data-theme] .chip[aria-pressed="true"] .dot{background:rgba(255,255,255,.9)}
+
+/* ---------- index sheet ---------- */
+.index{
+  max-width:var(--maxw); margin:0 auto; overflow:hidden;
+  max-height:0; transition:max-height .28s ease;
+}
+.index.open{max-height:400px}
+.index-inner{padding:12px 16px 4px}
+.index a{
+  display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  padding:9px 12px; border:1px solid var(--border); border-radius:10px; background:var(--surface);
+  margin-bottom:8px; color:var(--ink);
+}
+.index a .ix-n{font-weight:600; font-size:14px}
+.index a .ix-c{font-family:var(--font-mono); font-size:11px; color:var(--ink-3)}
+
+/* ---------- main ---------- */
+main{max-width:var(--maxw); margin:0 auto; padding:18px 16px 80px}
+.area{margin-bottom:34px; scroll-margin-top:184px}
+.area-head{display:flex; align-items:baseline; gap:10px; margin:0 2px 12px}
+.eyebrow{font-family:var(--font-mono); font-size:10.5px; font-weight:600; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--accent-ink)}
+.area-title{font-size:20px; font-weight:680; letter-spacing:-.3px; margin:0}
+.area-count{font-family:var(--font-mono); font-size:11px; color:var(--ink-3); margin-left:auto}
+.glance{
+  background:var(--accent-soft); border:1px solid var(--accent-line);
+  border-radius:12px; padding:13px 15px; margin-bottom:16px;
+}
+.glance .eyebrow{color:var(--accent-ink); display:block; margin-bottom:5px}
+.glance p{margin:0; font-size:14px; line-height:1.6; color:var(--ink)}
+html[data-theme="dark"] .glance p{color:var(--ink)}
+
+/* ---------- entry card ---------- */
+.card{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  margin-bottom:11px; overflow:hidden; box-shadow:var(--shadow);
+  scroll-margin-top:184px; transition:border-color .18s;
+}
+.card.flash{border-color:var(--accent); animation:flash 1.4s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--accent-soft)}100%{box-shadow:var(--shadow)}}
+.card-head{
+  appearance:none; width:100%; text-align:left; border:0; background:transparent; cursor:pointer;
+  padding:13px 15px; display:block; color:inherit;
+}
+.card-row{display:flex; align-items:center; gap:8px}
+.badge{
+  font-family:var(--font-mono); font-size:9.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase;
+  padding:2.5px 6px; border-radius:5px; flex:0 0 auto; line-height:1;
+}
+.badge.concept{background:var(--accent-soft); color:var(--accent-ink)}
+.badge.syntax{background:var(--surface-2); color:var(--ink-2)}
+.term{font-family:var(--font-mono); font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-.2px; min-width:0; word-break:break-word}
+.chev{margin-left:auto; color:var(--ink-3); flex:0 0 auto; transition:transform .2s}
+.chev svg{width:18px;height:18px;display:block}
+.card[open] .chev{transform:rotate(90deg)}
+.essence{margin:7px 0 0; font-size:14.5px; line-height:1.5; color:var(--ink-2)}
+.card[open] .essence{color:var(--ink)}
+
+/* detail */
+.detail{display:none; padding:2px 15px 15px 17px; border-left:2px solid var(--accent-line); margin:0 0 0 13px}
+.card[open] .detail{display:block}
+.field{margin-top:13px}
+.field .flabel{font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.8px; text-transform:uppercase; color:var(--ink-3); margin-bottom:4px}
+.field .fbody{font-size:14px; line-height:1.6; color:var(--ink)}
+.field .fbody code{font-family:var(--font-mono); font-size:12.5px; background:var(--surface-2); padding:1px 5px; border-radius:5px}
+
+pre{margin:6px 0 0; background:var(--surface-2); border:1px solid var(--border); border-radius:9px;
+  padding:11px 12px; overflow-x:auto; position:relative}
+pre code{font-family:var(--font-mono); font-size:12.5px; line-height:1.55; color:var(--ink); white-space:pre}
+.copybtn{
+  position:absolute; top:7px; right:7px; appearance:none; cursor:pointer;
+  border:1px solid var(--border); background:var(--surface); color:var(--ink-3);
+  font-family:var(--font-mono); font-size:10px; letter-spacing:.4px; padding:3px 7px; border-radius:6px;
+  opacity:.65; transition:.15s;
+}
+.copybtn:hover{opacity:1; color:var(--ink)}
+
+
+/* tables — list/collection content */
+.tablewrap{margin-top:6px; overflow-x:auto; border:1px solid var(--border); border-radius:9px; -webkit-overflow-scrolling:touch}
+table.ref{border-collapse:collapse; width:100%; font-size:12.5px}
+table.ref th,table.ref td{text-align:left; padding:7px 11px; border-bottom:1px solid var(--border); white-space:nowrap}
+table.ref thead th{font-family:var(--font-mono); font-size:9.5px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; color:var(--ink-3); background:var(--surface-2)}
+table.ref tbody tr:last-child td{border-bottom:0}
+table.ref td{color:var(--ink-2)}
+table.ref td:first-child{font-family:var(--font-mono); font-weight:600; color:var(--ink)}
+
+/* mobile: reflow tables into stacked cards (no horizontal scroll) */
+@media (max-width:560px){
+  .tablewrap{border:0; overflow:visible}
+  table.ref{font-size:13px}
+  table.ref thead{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+  table.ref, table.ref tbody, table.ref tr, table.ref td{display:block; width:100%}
+  table.ref tr{border:1px solid var(--border); border-radius:9px; background:var(--surface); padding:9px 11px; margin-bottom:8px}
+  table.ref td{border:0; padding:0}
+  table.ref td:first-child{padding-bottom:6px; margin-bottom:6px; border-bottom:1px solid var(--border); font-size:14px; white-space:normal}
+  table.ref td:not(:first-child){display:grid; grid-template-columns:5.5em 1fr; gap:10px; padding:2px 0}
+  table.ref td:not(:first-child)::before{content:attr(data-label); font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; color:var(--ink-3); align-self:center}
+}
+
+/* fact rows — mono keyword leads a prose description */
+.facts{display:grid; grid-template-columns:minmax(0,max-content) 1fr; column-gap:14px; row-gap:6px; margin-top:6px}
+.facts dt{font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--ink); white-space:nowrap; line-height:1.5}
+.facts dd{font-size:14px; line-height:1.45; color:var(--ink-2)}
+@media (max-width:480px){ .facts{grid-template-columns:1fr; row-gap:2px} .facts dt{margin-top:6px} .facts dt:first-of-type{margin-top:0} }
+
+/* chain / flow diagram — labeled nodes joined by arrows */
+.chain{display:flex; flex-wrap:wrap; align-items:stretch; gap:6px; margin-top:6px}
+.chain .node{display:flex; flex-direction:column; gap:2px; justify-content:center; padding:7px 11px; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; min-width:0}
+.chain .node-name{font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--ink)}
+.chain .node-role{font-family:var(--font-mono); font-size:9px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:var(--accent-ink)}
+.chain .arrow{align-self:center; color:var(--accent); font-weight:700; font-size:15px}
+
+/* topic nav — persistent wayfinding with scroll tracking */
+.topicnav{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; margin:0 -2px; padding:1px 2px}
+.topicnav::-webkit-scrollbar{display:none}
+.topicnav a{flex:0 0 auto; white-space:nowrap; font-family:var(--font-mono); font-size:12px; font-weight:500; color:var(--ink-3);
+  padding:5px 9px; border-radius:7px; border-bottom:2px solid transparent; text-decoration:none; transition:color .15s}
+.topicnav a:hover{color:var(--ink-2)}
+.topicnav a.active{color:var(--accent-ink); border-bottom-color:var(--accent)}
+
+/* source + related */
+.foot{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin-top:14px; padding-top:12px; border-top:1px solid var(--border)}
+.source{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-2)}
+.source .sl{font-family:var(--font-mono); font-size:10px; letter-spacing:.4px; color:var(--ink-3); text-transform:uppercase}
+.source a{display:inline-flex; align-items:center; gap:4px; color:var(--accent-ink); font-size:12.5px; font-weight:500}
+.source a svg{width:11px;height:11px}
+.related{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.related .rl{font-family:var(--font-mono); font-size:10px; letter-spacing:.4px; color:var(--ink-3); text-transform:uppercase; margin-right:2px}
+.rel{appearance:none; cursor:pointer; border:1px solid var(--border); background:var(--surface-2);
+  color:var(--ink-2); font-family:var(--font-mono); font-size:11px; padding:3px 8px; border-radius:999px; transition:.15s}
+.rel:hover{color:var(--accent-ink); border-color:var(--accent-line)}
+.prov{margin-top:10px; font-size:11.5px; color:var(--ink-3); font-style:italic}
+
+.empty{text-align:center; color:var(--ink-3); padding:50px 20px; font-size:14px}
+.empty .term{color:var(--accent-ink)}
+
+.legend{display:flex; flex-wrap:wrap; gap:4px 12px; margin:2px 2px 0; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-3)}
+.legend span{display:inline-flex; align-items:center; gap:5px}
+.legend i{width:8px;height:8px;border-radius:2px;display:inline-block}
+.ttop{position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:30;
+  width:44px; height:44px; border-radius:50%; border:1px solid var(--border); background:var(--surface);
+  color:var(--ink-2); display:none; place-items:center; cursor:pointer; box-shadow:var(--shadow)}
+.ttop.show{display:grid}
+.ttop svg{width:20px;height:20px}
+
+
+.mathblock{ margin-top:6.0px; font-family:Georgia, "Times New Roman", serif;
+  font-size:16.0px; line-height:1.9; color:var(--ink); overflow-x:auto; }
+.math{ white-space:nowrap; display:inline-block; }
+.mvar{ font-style:italic; }
+.mgreek{ font-style:italic; }
+.mtext{ font-style:normal; font-family:inherit; }
+.mrel{ padding:0 3.0px; }
+.mop{ padding:0 2.0px; }
+.mop-big{ font-size:1.35em; vertical-align:-.12em; padding:0 2.0px; }
+.msup{ font-size:.72em; vertical-align:6.0px; margin-left:.5px; }
+.msub{ font-size:.72em; vertical-align:-3.0px; margin-left:.5px; }
+.msup .msub, .msub .msup{ vertical-align:baseline; }
+.mfrac{ display:inline-flex; flex-direction:column; vertical-align:middle;
+  text-align:center; margin:0 3.0px; }
+.mfrac .mnum{ display:block; padding:0 4.0px 1.0px; border-bottom:1px solid currentColor; font-size:.92em; }
+.mfrac .mden{ display:block; padding:1.0px 4.0px 0; font-size:.92em; }
+.mbinom{ display:inline-flex; align-items:center; margin:0 2.0px; }
+.mbinom .mparen{ font-size:1.25em; }
+.mbinomstack{ display:inline-flex; flex-direction:column; vertical-align:middle;
+  text-align:center; font-size:.85em; line-height:1.15; margin:0 1.0px; }
+.msqrt{ display:inline-flex; align-items:stretch; }
+.msqrt .mrad{ font-size:1.1em; }
+.msqrt .msqrt-b{ border-top:1px solid currentColor; padding:0 3.0px; margin-top:.14em; }
+.mvec{ position:relative; display:inline-block; }
+.mvec::after{ content:"\2192"; position:absolute; left:0; right:0; top:-.62em;
+  font-size:.72em; text-align:center; font-style:normal; }
+.mbar{ border-top:1px solid currentColor; }
+.mhat{ position:relative; display:inline-block; }
+.mhat::after{ content:"^"; position:absolute; left:0; right:0; top:-.5em;
+  font-size:.8em; text-align:center; font-style:normal; }
+.msp-t{ display:inline-block; width:2.0px; }
+.msp-m{ display:inline-block; width:4.0px; }
+.msp-w{ display:inline-block; width:10.0px; }
+.mcaption{ font-size:12.0px; color:var(--ink-3, #888); margin-top:3.0px;
+  font-family:var(--font-mono, monospace); letter-spacing:.3px; }
+.mwhere{ margin-top:6.0px; }
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="wordmark">
+        <span class="n" id="wm"></span>
+        <span class="s" id="ws"></span>
+      </div>
+      <div class="tools">
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode">
+          <svg id="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="searchwrap">
+      <div class="searchbar" id="sbar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search concepts, syntax, examples…" aria-label="Search the reference">
+        <span class="kbd">/</span>
+        <button class="clearbtn" id="clearBtn" aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="results" id="results" role="listbox"></div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" data-f="concept" aria-pressed="false"><span class="dot concept"></span>Concept</button>
+      <button class="chip" data-f="syntax" aria-pressed="false"><span class="dot syntax"></span>Syntax</button>
+    </div>
+    <nav class="topicnav" id="topicnav" aria-label="Topic areas"></nav>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<button class="ttop" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById('refdata').textContent);
+const $ = (s,r=document)=>r.querySelector(s);
+const esc = s => s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---- math: build-free TeX-subset renderer (offline, no library) ---- */
+const MGREEK={alpha:'α',beta:'β',gamma:'γ',delta:'δ',epsilon:'ε',varepsilon:'ε',zeta:'ζ',eta:'η',theta:'θ',vartheta:'ϑ',iota:'ι',kappa:'κ',lambda:'λ',mu:'μ',nu:'ν',xi:'ξ',pi:'π',rho:'ρ',sigma:'σ',tau:'τ',upsilon:'υ',phi:'φ',varphi:'φ',chi:'χ',psi:'ψ',omega:'ω',Gamma:'Γ',Delta:'Δ',Theta:'Θ',Lambda:'Λ',Xi:'Ξ',Pi:'Π',Sigma:'Σ',Upsilon:'Υ',Phi:'Φ',Psi:'Ψ',Omega:'Ω'};
+const MSYM={cdot:'·',times:'×',div:'÷',pm:'±',mp:'∓',approx:'≈',neq:'≠',leq:'≤',le:'≤',geq:'≥',ge:'≥',to:'→',rightarrow:'→',leftarrow:'←',Rightarrow:'⇒',Leftrightarrow:'⇔',partial:'∂',infty:'∞',propto:'∝',equiv:'≡',sim:'∼',degree:'°',circ:'∘',ell:'ℓ',hbar:'ℏ',nabla:'∇',angle:'∠',int:'∫',oint:'∮',sum:'∑',prod:'∏',in:'∈',notin:'∉',perp:'⊥',parallel:'∥',ldots:'…',cdots:'⋯',prime:'′',
+  forall:'∀',exists:'∃',nexists:'∄',neg:'¬',lnot:'¬',land:'∧',wedge:'∧',lor:'∨',vee:'∨',oplus:'⊕',iff:'↔',leftrightarrow:'↔',implies:'→',top:'⊤',bot:'⊥',vdash:'⊢',models:'⊨',therefore:'∴',because:'∵',
+  subset:'⊂',subseteq:'⊆',supset:'⊃',supseteq:'⊇',cup:'∪',cap:'∩',emptyset:'∅',varnothing:'∅',setminus:'∖',mid:'∣',nmid:'∤'};
+function mGroup(s,i){let d=0,j=i;for(;j<s.length;j++){if(s[j]==='{')d++;else if(s[j]==='}'){d--;if(!d)return [s.slice(i+1,j),j+1];}}return [s.slice(i+1),s.length];}
+function mArg(s,i){while(i<s.length&&s[i]===' ')i++;if(i>=s.length)return ['',i];if(s[i]==='{')return mGroup(s,i);
+  if(s[i]==='\\'){const m=/^\\[A-Za-z]+/.exec(s.slice(i));if(m)return [m[0],i+m[0].length];}
+  return [s[i],i+1];}
+function mrender(src){let out='',i=0;const n=src.length;
+  while(i<n){const c=src[i];
+    if(c==='\\'){const m=/^\\([A-Za-z]+)/.exec(src.slice(i));
+      if(m){const name=m[1];let j=i+m[0].length;
+        if(name==='frac'){let a,b;[a,j]=mArg(src,j);[b,j]=mArg(src,j);
+          out+='<span class="mfrac"><span class="mnum">'+mrender(a)+'</span><span class="mden">'+mrender(b)+'</span></span>';i=j;continue;}
+        if(name==='binom'){let a,b;[a,j]=mArg(src,j);[b,j]=mArg(src,j);
+          out+='<span class="mbinom"><span class="mparen">(</span><span class="mbinomstack"><span class="mbn">'+mrender(a)+'</span><span class="mbk">'+mrender(b)+'</span></span><span class="mparen">)</span></span>';i=j;continue;}
+        if(name==='sqrt'){let a;[a,j]=mArg(src,j);
+          out+='<span class="msqrt"><span class="mrad">√</span><span class="msqrt-b">'+mrender(a)+'</span></span>';i=j;continue;}
+        if(name==='vec'||name==='bar'||name==='hat'||name==='dot'){let a;[a,j]=mArg(src,j);
+          const cls={vec:'mvec',bar:'mbar',hat:'mhat',dot:'mdot'}[name];
+          out+='<span class="'+cls+'">'+mrender(a)+'</span>';i=j;continue;}
+        if(name==='text'){let a;[a,j]=mArg(src,j);out+='<span class="mtext">'+esc(a)+'</span>';i=j;continue;}
+        if(name==='left'||name==='right'){i=j;continue;}
+        if(name==='quad'){out+='<span class="msp-w"></span>';i=j;continue;}
+        if(MGREEK[name]){out+='<span class="mgreek">'+MGREEK[name]+'</span>';i=j;continue;}
+        if(MSYM[name]){const big=(name==='int'||name==='oint'||name==='sum'||name==='prod');
+          out+='<span class="'+(big?'mop-big':'mop')+'">'+MSYM[name]+'</span>';i=j;continue;}
+        out+='<span class="mtext">'+esc(name)+'</span>';i=j;continue;}
+      if(src[i+1]===','){out+='<span class="msp-t"></span>';i+=2;continue;}
+      if(src[i+1]===';'){out+='<span class="msp-m"></span>';i+=2;continue;}
+      i++;continue;}
+    if(c==='^'||c==='_'){let a;[a,i]=mArg(src,i+1);
+      out+='<span class="'+(c==='^'?'msup':'msub')+'">'+mrender(a)+'</span>';continue;}
+    if(/[A-Za-z]/.test(c)){const m=/^[A-Za-z]+/.exec(src.slice(i));
+      out+='<span class="mvar">'+esc(m[0])+'</span>';i+=m[0].length;continue;}
+    if(c===' '){out+=' ';i++;continue;}
+    if('+-=<>'.includes(c)){out+='<span class="mrel">'+esc(c==='-'?'−':c)+'</span>';i++;continue;}
+    out+=esc(c);i++;}
+  return out;}
+
+/* ---- header text ---- */
+$('#wm').innerHTML = DATA.meta.wordmark || 'Ref'; if(DATA.meta.title){document.title = DATA.meta.title;}
+$('#ws').textContent = DATA.meta.subtitle || '';
+
+/* ---- flatten entries with area info ---- */
+const ALL = [];
+DATA.topicAreas.forEach(area=>{
+  area.entries.forEach(e=>{ ALL.push({...e, areaId:area.id, areaName:area.name}); });
+});
+const slug = t => t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+/* ---- build markup ---- */
+function iconExt(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';}
+function iconChev(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';}
+
+function fieldHTML(f){
+  if(f.columns){
+    const head='<thead><tr>'+f.columns.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr></thead>';
+    const body='<tbody>'+(f.rows||[]).map(r=>'<tr>'+r.map((c,i)=>'<td'+(i?' data-label="'+esc(f.columns[i])+'"':'')+'>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</tbody>';
+    return '<div class="field"><div class="flabel">'+esc(f.label)+'</div><div class="tablewrap"><table class="ref">'+head+body+'</table></div></div>';
+  }
+  if(f.formula){
+    const eqs=(Array.isArray(f.formula)?f.formula:[f.formula]).map(x=>{
+      const tex = typeof x==='string' ? x : x.tex;
+      const cap = (typeof x==='object' && x.caption) ? '<div class="mcaption">'+esc(x.caption)+'</div>' : '';
+      return '<div class="mathblock"><span class="math">'+mrender(tex)+'</span>'+cap+'</div>';
+    }).join('');
+    const where = f.where ? '<dl class="facts mwhere">'+f.where.map(p=>'<dt>'+mrender(p[0])+'</dt><dd>'+esc(p[1])+'</dd>').join('')+'</dl>' : '';
+    return '<div class="field"><div class="flabel">'+esc(f.label)+'</div>'+eqs+where+'</div>';
+  }
+  if(f.facts){
+    const rows=f.facts.map(p=>'<dt>'+esc(p[0])+'</dt><dd>'+esc(p[1])+'</dd>').join('');
+    return '<div class="field"><div class="flabel">'+esc(f.label)+'</div><dl class="facts">'+rows+'</dl></div>';
+  }
+  if(f.chain){
+    const nodes=f.chain.map(n=>{
+      const name = typeof n==='string' ? n : n.name;
+      const role = typeof n==='string' ? '' : (n.role||'');
+      return '<span class="node"><span class="node-name">'+esc(name)+'</span>'+(role?'<span class="node-role">'+esc(role)+'</span>':'')+'</span>';
+    }).join('<span class="arrow" aria-hidden="true">→</span>');
+    return '<div class="field"><div class="flabel">'+esc(f.label)+'</div><div class="chain">'+nodes+'</div></div>';
+  }
+  if(f.code!==undefined){
+    return '<div class="field"><div class="flabel">'+esc(f.label)+'</div>'+
+      '<pre><button class="copybtn" type="button">copy</button><code>'+esc(f.code)+'</code></pre></div>';
+  }
+  return '<div class="field"><div class="flabel">'+esc(f.label)+'</div><div class="fbody">'+esc(f.body)+'</div></div>';
+}
+function entryHTML(e){
+  const id = slug(e.term);
+  const details = (e.detail||[]).map(fieldHTML).join('');
+  const prov = e.provenance==='representative' ? '<div class="prov">Representative — confirm against your actual lesson.</div>' : '';
+  let source = '';
+  if(e.source){ source = '<span class="source"><span class="sl">Source</span> <a href="'+esc(e.source.url)+'" target="_blank" rel="noopener">'+esc(e.source.label)+' '+iconExt()+'</a></span>'; }
+  let related = '';
+  if(e.related && e.related.length){
+    related = '<span class="related"><span class="rl">See also</span>'+
+      e.related.map(r=>'<button class="rel" type="button" data-jump="'+esc(slug(r))+'">'+esc(r)+'</button>').join('')+'</span>';
+  }
+  const foot = (source||related) ? '<div class="foot">'+source+related+'</div>' : '';
+  return '<div class="card" id="'+id+'" data-type="'+e.type+'" data-term="'+esc(e.term.toLowerCase())+'">'+
+    '<button class="card-head" type="button" aria-expanded="false">'+
+      '<span class="card-row"><span class="badge '+e.type+'">'+e.type+'</span>'+
+      '<span class="term">'+esc(e.term)+'</span>'+
+      '<span class="chev">'+iconChev()+'</span></span>'+
+      '<p class="essence">'+esc(e.essence)+'</p>'+
+    '</button>'+
+    '<div class="detail">'+details+prov+foot+'</div>'+
+  '</div>';
+}
+function areaHTML(area){
+  const entries = area.entries.map(entryHTML).join('');
+  return '<section class="area" id="area-'+area.id+'">'+
+    '<div class="area-head"><h2 class="area-title">'+esc(area.name)+'</h2>'+
+      '<span class="area-count">'+area.entries.length+'</span></div>'+
+    '<div class="glance"><span class="eyebrow">At a glance</span><p>'+esc(area.glance)+'</p></div>'+
+    entries+'</section>';
+}
+$('#main').innerHTML = DATA.topicAreas.map(areaHTML).join('') + '<div class="empty" id="noRes" style="display:none">No entries match this filter.</div>';
+
+/* topic nav */
+$('#topicnav').innerHTML = DATA.topicAreas.map(a=>
+  '<a href="#area-'+a.id+'" data-nav="area-'+a.id+'">'+esc(a.name)+'</a>'
+).join('');
+
+/* ---- expand / collapse ---- */
+$('#main').addEventListener('click', e=>{
+  const head = e.target.closest('.card-head');
+  if(head){
+    const card = head.closest('.card');
+    const open = card.hasAttribute('open');
+    if(open){card.removeAttribute('open'); head.setAttribute('aria-expanded','false');}
+    else{card.setAttribute('open',''); head.setAttribute('aria-expanded','true');}
+    return;
+  }
+  const copy = e.target.closest('.copybtn');
+  if(copy){
+    const code = copy.parentElement.querySelector('code').textContent;
+    navigator.clipboard?.writeText(code).then(()=>{const t=copy.textContent;copy.textContent='copied';setTimeout(()=>copy.textContent=t,1200);}).catch(()=>{});
+    return;
+  }
+  const jump = e.target.closest('[data-jump]');
+  if(jump){ jumpTo(jump.getAttribute('data-jump')); }
+});
+
+function jumpTo(id){
+  const card = document.getElementById(id);
+  if(!card) return;
+  clearSearch();
+  setFilter('all');
+  if(!card.hasAttribute('open')){card.setAttribute('open',''); card.querySelector('.card-head').setAttribute('aria-expanded','true');}
+  card.scrollIntoView({behavior:'smooth', block:'center'});
+  card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash');
+}
+
+/* ---- filters ---- */
+let filter = 'all';
+function setFilter(f){
+  filter = f;
+  $$('.chip').forEach(c=>c.setAttribute('aria-pressed', c.dataset.f===f ? 'true':'false'));
+  applyFilter();
+}
+function $$(s){return [...document.querySelectorAll(s)];}
+function applyFilter(){
+  let anyVisible=false;
+  DATA.topicAreas.forEach(area=>{
+    const sec = document.getElementById('area-'+area.id);
+    let shown=0;
+    sec.querySelectorAll('.card').forEach(card=>{
+      const ok = filter==='all' ? true : card.dataset.type===filter;
+      card.style.display = ok ? '' : 'none';
+      if(ok) shown++;
+    });
+    sec.style.display = shown ? '' : 'none';
+    if(shown) anyVisible=true;
+  });
+  $('#noRes').style.display = anyVisible ? 'none' : 'block';
+}
+$('#filters').addEventListener('click', e=>{const c=e.target.closest('.chip'); if(c) setFilter(c.dataset.f);});
+
+/* ---- search ---- */
+const qEl = $('#q'), sbar=$('#sbar'), resBox=$('#results'), clearBtn=$('#clearBtn');
+function subseq(q,t){let i=0;for(const ch of t){if(ch===q[i])i++;if(i===q.length)return true;}return q.length===0;}
+function bodyText(e){
+  let s=e.essence+' ';
+  (e.detail||[]).forEach(f=>{s+=(f.label||'')+' '+(f.body||'')+' '+(f.code||'')+' '; if(f.rows) f.rows.forEach(r=>s+=r.join(' ')+' '); if(f.facts) f.facts.forEach(p=>s+=p.join(' ')+' '); if(f.chain) f.chain.forEach(n=>s+=(typeof n==='string'?n:n.name+' '+(n.role||''))+' '); if(f.formula){(Array.isArray(f.formula)?f.formula:[f.formula]).forEach(x=>{s+=(typeof x==='string'?x:(x.tex+' '+(x.caption||'')))+' ';});} if(f.where) f.where.forEach(p=>s+=p.join(' ')+' ');});
+  return s.toLowerCase();
+}
+function score(e,q){
+  const term=e.term.toLowerCase(), al=(e.aliases||[]).map(a=>a.toLowerCase()), ess=e.essence.toLowerCase(), body=bodyText(e);
+  let s=0;
+  if(term===q)s+=1000; else if(term.startsWith(q))s+=620; else if(term.includes(q))s+=420; else if(subseq(q,term))s+=150;
+  for(const a of al){ if(a===q)s+=520; else if(a.startsWith(q))s+=320; else if(a.includes(q))s+=210; }
+  if(ess.includes(q))s+=120;
+  if(body.includes(q))s+=60;
+  const toks=q.split(/\s+/).filter(Boolean);
+  if(toks.length>1){const hay=term+' '+al.join(' ')+' '+body; if(toks.every(t=>hay.includes(t)))s+=220;}
+  return s;
+}
+function hl(text,q){
+  const t=esc(text); if(!q) return t;
+  const i=text.toLowerCase().indexOf(q); if(i<0) return t;
+  return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+q.length))+'</mark>'+esc(text.slice(i+q.length));
+}
+let activeIdx=-1, curResults=[];
+function runSearch(){
+  const raw=qEl.value.trim(), q=raw.toLowerCase();
+  sbar.classList.toggle('has-q', raw.length>0);
+  if(!q){ resBox.classList.remove('open'); resBox.innerHTML=''; curResults=[]; return; }
+  const scored=ALL.map(e=>({e,s:score(e,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,12);
+  curResults=scored; activeIdx=-1;
+  if(!scored.length){ resBox.innerHTML='<div class="r-hint">No matches. Try a shorter or different term.</div>'; resBox.classList.add('open'); return; }
+  resBox.innerHTML=scored.map((x,i)=>{
+    const e=x.e;
+    return '<button class="result" role="option" data-i="'+i+'" data-term="'+esc(slug(e.term))+'">'+
+      '<span class="r-top"><span class="badge '+e.type+'">'+e.type+'</span>'+
+      '<span class="r-term">'+hl(e.term,q)+'</span></span>'+
+      '<span class="r-ess">'+hl(e.essence,q)+'</span></button>';
+  }).join('');
+  resBox.classList.add('open');
+}
+resBox.addEventListener('click',e=>{const r=e.target.closest('.result'); if(r) jumpTo(r.dataset.term);});
+qEl.addEventListener('input', runSearch);
+function clearSearch(){ qEl.value=''; sbar.classList.remove('has-q'); resBox.classList.remove('open'); resBox.innerHTML=''; curResults=[]; }
+clearBtn.addEventListener('click',()=>{clearSearch(); qEl.focus();});
+qEl.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){clearSearch(); qEl.blur();}
+  else if(e.key==='Enter'){ if(curResults.length){ const pick=activeIdx>=0?activeIdx:0; jumpTo(slug(curResults[pick].e.term)); } }
+  else if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+    e.preventDefault(); if(!curResults.length) return;
+    activeIdx=(activeIdx+(e.key==='ArrowDown'?1:-1)+curResults.length)%curResults.length;
+    $$('.result').forEach((el,i)=>el.classList.toggle('active',i===activeIdx));
+    $$('.result')[activeIdx]?.scrollIntoView({block:'nearest'});
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='/' && document.activeElement!==qEl && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){ e.preventDefault(); qEl.focus(); }
+});
+document.addEventListener('click',e=>{ if(!e.target.closest('.searchwrap')) resBox.classList.remove('open'); });
+
+/* ---- index sheet toggle ---- */
+/* ---- topic nav + scrollspy ---- */
+const navLinks = $$('#topicnav a');
+const areaEls = DATA.topicAreas.map(a=>document.getElementById('area-'+a.id));
+let activeArea=null;
+function setActiveNav(id){
+  if(id===activeArea) return; activeArea=id;
+  navLinks.forEach(a=>{
+    const on=a.dataset.nav===id; a.classList.toggle('active',on);
+    if(on){ const nav=$('#topicnav'); nav.scrollTo({left:a.offsetLeft - nav.clientWidth/2 + a.offsetWidth/2, behavior:'smooth'}); }
+  });
+}
+function updateSpy(){
+  const probe = ($('.top').offsetHeight||0) + 20;
+  let current=null;
+  areaEls.forEach(el=>{ if(el && el.style.display!=='none' && el.getBoundingClientRect().top - probe <= 0) current=el.id; });
+  if(!current){ const first=areaEls.find(el=>el && el.style.display!=='none'); if(first) current=first.id; }
+  if(current) setActiveNav(current);
+}
+let spyTick=false;
+addEventListener('scroll',()=>{ if(spyTick) return; spyTick=true; requestAnimationFrame(()=>{updateSpy(); spyTick=false;}); },{passive:true});
+$('#topicnav').addEventListener('click',e=>{ const a=e.target.closest('a'); if(a) setActiveNav(a.dataset.nav); });
+updateSpy();
+
+/* ---- theme ---- */
+const root=document.documentElement, themeBtn=$('#themeBtn'), moon=$('#ic-moon'), sun=$('#ic-sun');
+function applyTheme(t){ root.setAttribute('data-theme',t); const dark=t==='dark'; moon.style.display=dark?'none':'block'; sun.style.display=dark?'block':'none'; try{localStorage.setItem('javaref-theme',t);}catch(_){} }
+(function initTheme(){ let t='light'; try{t=localStorage.getItem('javaref-theme')||'light';}catch(_){} applyTheme(t); })();
+themeBtn.addEventListener('click',()=>applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark'));
+
+/* ---- back to top ---- */
+const toTop=$('#toTop');
+addEventListener('scroll',()=>{ toTop.classList.toggle('show', scrollY>600); }, {passive:true});
+toTop.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+/* ---- PWA: register only when actually hosted; silent no-op otherwise ---- */
+if('serviceWorker' in navigator && (location.protocol==='https:' || location.protocol==='http:')){
+  addEventListener('load',()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); });
+}
+</script>
+</body>
+</html>
