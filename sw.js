@@ -2,7 +2,7 @@
 // Network-first: online, always fetch fresh and re-cache; offline, serve the
 // last cached copy. CACHE_NAME is stamped with a hash of reference-source.json
 // by rebuild.py, so any content change busts the old cache automatically.
-const CACHE_NAME = "refdoc-224c0225a0";
+const CACHE_NAME = "refdoc-bf9d7cd50e";
 const CORE_ASSETS = ["./", "./index.html", "./manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
